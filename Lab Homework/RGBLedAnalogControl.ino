@@ -19,7 +19,12 @@ pinMode(greenIn,INPUT);
 pinMode(blueIn,INPUT);
 
 }
-
+void setColors(int r,int g,int b)
+{
+  analogWrite(redOut,r);
+  analogWrite(greenOut,g);
+  analogWrite(blueOut,b);
+}
 void loop() {
   // put your main code here, to run repeatedly:
   red=analogRead(redIn);
@@ -28,7 +33,5 @@ void loop() {
   red=map(red,0,1023,0,255);
   green=map(green,0,1023,0,255);
   blue=map(blue,0,1023,0,255);
-analogWrite(redOut,red);
-analogWrite(greenOut,green);
-analogWrite(blueOut,blue);
+  setColors(red,green,blue);
 }
