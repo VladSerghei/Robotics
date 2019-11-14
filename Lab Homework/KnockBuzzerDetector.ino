@@ -1,7 +1,7 @@
 const int buttonPin=2;
 const int buzzPin=A0;
 const int tonePin=9;
-
+const int threshold=500;
 int buttonState=0;
 int buzzVal=0;
 int pushTime=0;
@@ -22,7 +22,7 @@ buzzSet=!buttonState;
 buzzVal=analogRead(buzzPin);
 
 
-if(buzzVal>500&&pushTime==0)
+if(buzzVal>threshold&&pushTime==0)
 {
   pushTime=millis();
   crTime=pushTime;
@@ -41,11 +41,11 @@ if(buzzSet==HIGH)
   crTime=0;
   pushTime=0;
 }
-Serial.print(buzzVal);
+/*Serial.print(buzzVal);
 Serial.print(' ');
 Serial.print(pushTime);
 Serial.print(' ');
 Serial.print(buzzSet);
 Serial.print(' ');
-Serial.println(crTime);
+Serial.println(crTime);*/
 }
