@@ -3,36 +3,37 @@ const int pinSW = 0;
 const int pinX = A0;
 const int pinY = A1;
 
-int swState = LOW;
-int lastSwState = LOW;
-int switchValue;
 int xValue = 0;
 int yValue = 0;
+int swState = LOW;
+int lastSwState = LOW;
+
+int lastBlink=0;
+int DPValue=LOW;
 
 int index=0;
 int minThreshold= 400;
 int maxThreshold= 600;
 bool joyMoved=false;
 
-const int pinA = 12;
-const int pinB = 8;
-const int pinC = 5;
-const int pinD = 3;
-const int pinE = 2;
-const int pinF = 11;
-const int pinG = 6;
-const int pinDP = 4;
-const int pinD1 = 7;
-const int pinD2 = 9;
-const int pinD3 = 10;
-const int pinD4 = 13;
+const int pinA = 3;
+const int pinB =5 ;
+const int pinC = 11;
+const int pinD = 9;
+const int pinE = 8;
+const int pinF = 4;
+const int pinG = 12;
+const int pinDP = 10;
+const int pinD1 = 13;
+const int pinD2 =7 ;
+const int pinD3 =6 ;
+const int pinD4 =2 ;
 
 const int segSize = 8;
 const int noOfDigits = 10;
 const int noOfDisplays = 4;
 
 int activeDisplay=0;
-int dpState = LOW;
 int digit=0;
 int locked=0;
 
@@ -55,18 +56,18 @@ byte digitMatrix[noOfDigits][segSize - 1] = {
 };
 
 int digits[noOfDisplays] = {
-pinD1, pinD2, pinD3, pinD4
+pinD4, pinD3, pinD2, pinD1
 };
 
 int num[noOfDisplays]={0,0,0,0};
 
-void displayNumber(byte digit, byte decimalPoint)
+void displayNumber(byte digit)
 {
   for (int i = 0; i < segSize - 1; i++) 
   {
     digitalWrite(segments[i], digitMatrix[digit][i]);
   }
-digitalWrite(segments[segSize - 1], decimalPoint);
+
 }
 
 void activateDigit(int num)
@@ -142,12 +143,12 @@ if(locked==0)
    {
     joyMoved = false;
    }
-    digitalWrite(segments[segSize - 1], HIGH);
+    
 }
 else
 {
   
-  if (yValue < minThreshold && joyMoved == false) 
+  if (yValue > maxThreshold && joyMoved == false) 
   {
     if (num[activeDisplay] > 0) 
     {
@@ -158,10 +159,10 @@ else
       num[activeDisplay]=9;
     }
     joyMoved = true;
-  displayNumber(num[activeDisplay],LOW);
+
   }
 
-  if (yValue > maxThreshold && joyMoved == false) 
+  if (yValue < minThreshold && joyMoved == false) 
   {
     if (num[activeDisplay] < 9) 
     {
@@ -172,7 +173,6 @@ else
       num[activeDisplay]=0;
     }
     joyMoved = true;
-   displayNumber(num[activeDisplay],LOW);
    }
    if (yValue >= minThreshold && yValue <= maxThreshold)
    {
@@ -183,9 +183,34 @@ else
 
 for(index=0;index<noOfDisplays;index++)
 {
-  activateDigit(index);
-  displayNumber(num[index],LOW);
+  if(index==activeDisplay)
+  {
+    activateDigit(index);
+    if(locked==1)
+    {
+      displayNumber(num[index]);
+      digitalWrite(segments[segSize - 1], HIGH);
+    }
+    else
+    {
+      if(millis()-lastBlink>500)
+      {
+        DPValue=!DPValue;
+        lastBlink=millis();
+      }
+      
+      displayNumber(num[index]);
+      digitalWrite(segments[segSize - 1], DPValue);
+    }
   delay(5);
+  }
+  else
+  {
+  activateDigit(index);
+  displayNumber(num[index]);
+  digitalWrite(segments[segSize - 1], LOW);
+  delay(5);
+  }
 }
 activateDigit(activeDisplay);
 
