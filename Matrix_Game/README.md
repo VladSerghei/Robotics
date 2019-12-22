@@ -91,9 +91,9 @@ https://drive.google.com/open?id=1n0pFE15fYdXcSv68PPpez7jvBPA1W5FM
   The ending screen shows the winner and the score that he achieved.  
   Score is calculated depending on total time spent shooting and on game level.  
   If the score is a highscore, an appropriate message is shown and the score is stored as highscore.  
-  In the end, the players are presented the option to play again or to go back to main menu. The cursor for selecting one of these  
-  two options will appear after a few seconds so that players do not press the joystick buttons by mistake. Also, only player 1  
-  can control the choice in this menu using joystick, the other joystick having no effect.
+  In the end, the players are presented the option to play again or to go back to main menu. The cursor for selecting one of    
+  thes two options will appear after a few seconds so that players do not press the joystick buttons by mistake. Also, only  
+  player 1 can control the choice in this menu using joystick, the other joystick having no effect.
   
   
   
