@@ -7,10 +7,10 @@ player ships. The ships have to be at least one square away in any direction fro
 The game is implemented on a 8x8 LED matrix, with an LCD screen used as menu and also to help the steps in game.  
 Initially, there will be a menu on the LCD where the players can choose to play, change settings, or see highscores.
   
-Link to video:  
+Link to video showing a demo of the game:  
 https://drive.google.com/open?id=1xm-Mvgz8Bos5ng_9Ut5R4y8xqUxfPRsV
   
-Link to photo:  
+Link to photo showing the fully assembled hardware:  
 https://drive.google.com/open?id=1n0pFE15fYdXcSv68PPpez7jvBPA1W5FM
   
 ## HARDWARE COMPONENTS  
